@@ -6,6 +6,7 @@ Use 'insmod /path/to/module' command to insert the modules
 Example: insmod /opt/modules_add/nfnetlink_queue.ko
 
 Add this code to the beginning of the script 'zapret':
+
     if m=$(lsmod | grep "nfnetlink_queue"); then
     	echo "nfnetlink_queue.ko has already been inserted in modules"
     else
