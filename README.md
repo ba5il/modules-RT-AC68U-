@@ -19,3 +19,9 @@ Add this code to the beginning of the script 'zapret':
             echo "inserting module: xt_owner.ko"
             $(insmod /opt/modules_add/xt_owner.ko)
     fi
+    if m=$(lsmod | grep "xt_connbytes"); then
+    	echo "xt_connbytes.ko has already been inserted in modules"
+    else
+    	echo "inserting module: xt_connbytes.ko"
+    	$(insmod /opt/modules_add/xt_connbytes.ko)
+    fi
