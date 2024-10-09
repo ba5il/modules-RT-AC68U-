@@ -3,6 +3,7 @@
 
 Для автоматического подключения необходимых внешних модулей нужно изменить функцию запуска do_start() в файле '/opt/zapret/init.d/sysv/zapret':
 
+
 do_start()
 {
         if m=$(lsmod | grep "nfnetlink_queue"); then
