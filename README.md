@@ -1,9 +1,10 @@
 # modules-RT-AC68U-
 Дополнитальные модули, необходимые для работы 'zapret'
 
-Для автоматического подключения необходимых внешних модулей нужно изменить функцию запуска do_start() в файле '/opt/zapret/init.d/sysv/zapret':
+Для автоматического подключения необходимых внешних модулей нужно изменить функцию запуска `do_start()` в файле `/opt/zapret/init.d/sysv/zapret`:
 
 
+```
 do_start()
 {
         if m=$(lsmod | grep "nfnetlink_queue"); then
@@ -27,3 +28,5 @@ do_start()
         zapret_run_daemons
         [ "$INIT_APPLY_FW" != "1" ] || { zapret_apply_firewall; }
 }
+```
+
