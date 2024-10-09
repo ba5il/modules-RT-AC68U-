@@ -23,7 +23,7 @@ chmod 644 /opt/bin/crontab
 ln -fs /opt/zapret/init.d/sysv/zapret /opt/etc/init.d/S99zapret
 
 
-**Подключите необходимые модули **
+**Подключите необходимые модули**
 
 nano /jffs/scripts/init-start
 
