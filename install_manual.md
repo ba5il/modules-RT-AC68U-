@@ -11,6 +11,8 @@ curl -L -o /tmp/modules.zip https://github.com/ba5il/modules-RT-AC68U-/archive/r
 unzip /tmp/modules.zip -d /opt
 rm /tmp/modules.zip
 mv /opt/modules-RT-AC68U--main/ /opt/modules_add/
+/opt/modules_add/ins_mod
+ln -fs /opt/modules_add/ins_mod  /opt/etc/init.d/S98insmod
 
 /opt/zapret/install_bin.sh
 /opt/zapret/install_easy.sh
