@@ -27,4 +27,3 @@ do_start()
         zapret_run_daemons
         [ "$INIT_APPLY_FW" != "1" ] || { zapret_apply_firewall; }
 }
-
