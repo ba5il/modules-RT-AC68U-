@@ -1,11 +1,10 @@
-**Устанавливаем необходимые пакеты**
+**1. Устанавливаем необходимые пакеты**
 
 `opkg install curl bind-tools git-http ipset iptables xtables-addons_legacy cron coreutils-id ` 
 
-`cron` здесь нужен только
-В файле /opt/etc/init.d/S10cron вместо ARGS="-s" оставляем просто ARGS=""
+`cron` здесь нужен для обновления списка доменов из реестра. В файле `/opt/etc/init.d/S10cron` вместо ARGS="-s" оставляем просто ARGS=""
 
-**Скачиваем недостающие модули и переносим их в раздел jffs**
+**2. Скачиваем недостающие модули и переносим их в раздел jffs**
 
 `git clone --depth 1 https://github.com/ba5il/modules-RT-AC68U- /opt/gittmp`
 
@@ -13,7 +12,7 @@
 
 `rm -r /opt/gittmp`
 
-**Добавляем подключение необходимых модулей в скрипт при старте роутера**
+**3. Добавляем подключение необходимых модулей в скрипт при старте роутера**
 `nano /jffs/scripts/init-start`
 
 Мой файл выглядит так:
@@ -31,20 +30,31 @@ insmod /jffs/modules/xt_owner.ko
 insmod /jffs/modules/xt_connbytes.ko
 ```
 
-**Теперь можно заняться настройкой и запуском основного скрипта**
+**4. Теперь можно заняться настройкой и запуском основного скрипта**
 
-`git clone --depth 1 https://github.com/bol-van/zapret /opt/zapret`
+4.1) Клонируем репозиторий `git clone --depth 1 https://github.com/bol-van/zapret /opt/zapret`
 
-Устанавливаем нужные бинарники  `/opt/zapret/install_bin.sh`
+4.2) Устанавливаем нужные бинарники  `/opt/zapret/install_bin.sh`
 
-Настройка основного конфига `/opt/zapret/install_easy.sh`
+  Начиная с этого момента рекомендую почитать `https://github.com/bol-van/zapret/blob/master/docs/quick_start.txt` с 7-го пункта.
 
-rndc: neither /opt/etc/bind/rndc.conf nor /opt/etc/bind/rndc.key was found
-На эту ошибку внимание не обращать (в функции идут проверки на все типы dns серверов zapret/ipset/def.sh).
-You (your login) are not allowed to use this program (crontab)
-Если получаете такую ошибку, нужно изменить права crontab
-chmod 644 /opt/bin/crontab
+4.3) Запускаем поиск возможных стратегий обхода `/opt/zapret/blockcheck.sh | tee /opt/zapret/blockcheck.txt`
 
-**Добавляем в автозапуск при старте системы**
+  Весь вывод работы скрипта будет записан в файл blockcheck.txt. Имя можно дать любое (например, сделать несколько запусков с разными доменами). Открыв потом файл, можно копировать из него разные стратегии с меткой !!!AVAILABLE!!! в файл `/opt/zapret/config`, подбирая те, что будут работать.
+
+4.4) Настройка основного конфига `/opt/zapret/install_easy.sh` Перед запуском рекомендую через команду `ifconfig` узнать имя WAN интерфейса (с вашим внешним IP, у меня был eth0)
+
+   У меня выбран режим фильтрации MODE_FILTER=hostlist. Обход применяется ко всем доменам, кроме списка `/opt/zapret/ipset/zapret-hosts-user-exclude.txt` Сюда можно добавлять сайты, которые не заблокированы, но при запуске обхода ломаются.
+  Если вам нужен именно такой режим - нужно сделать пустым файл `/opt/zapret/ipset/zapret-hosts-users.txt`.
+  
+  ***В конце работы скрипта могут быть следующие ошибки***
+
+  `rndc: neither /opt/etc/bind/rndc.conf nor /opt/etc/bind/rndc.key was found` На эту ошибку внимание не обращать (в функции из zapret/ipset/def.sh идут проверки на все типы dns серверов).
+
+  `You (your login) are not allowed to use this program (crontab)` Если получаете такую ошибку, нужно изменить права crontab
+
+  `chmod 644 /opt/bin/crontab`
+
+**5. Добавляем в автозапуск при старте системы**
 
 `ln -fs /opt/zapret/init.d/sysv/zapret /opt/etc/init.d/S99zapret`
