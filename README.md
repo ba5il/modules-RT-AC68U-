@@ -30,7 +30,7 @@ insmod /jffs/modules/nfnetlink_queue.ko
 insmod /jffs/modules/xt_owner.ko
 insmod /jffs/modules/xt_connbytes.ko
 ```
-После этого можно запустить `/jffs/scripts/init-start`, чтобы все необходимые модули подключились.
+После этого выполняем `/jffs/scripts/init-start`, чтобы все необходимые модули подключились.
 
 **4. Теперь можно заняться настройкой и запуском основного скрипта**
 
@@ -56,6 +56,8 @@ insmod /jffs/modules/xt_connbytes.ko
   `You (your login) are not allowed to use this program (crontab)` Если получаете такую ошибку, нужно изменить права crontab
 
   `chmod 644 /opt/bin/crontab`
+
+***После настройки запускаем*** `/opt/zapret/init.d/sysv/zapret start`
 
 **5. Добавляем в автозапуск при старте системы**
 
