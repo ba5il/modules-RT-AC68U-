@@ -13,6 +13,7 @@
 `rm -r /opt/gittmp`
 
 **3. Добавляем подключение необходимых модулей в скрипт при старте роутера**
+
 `nano /jffs/scripts/init-start`
 
 Мой файл выглядит так:
@@ -29,6 +30,7 @@ insmod /jffs/modules/nfnetlink_queue.ko
 insmod /jffs/modules/xt_owner.ko
 insmod /jffs/modules/xt_connbytes.ko
 ```
+После этого можно запустить `/jffs/scripts/init-start`, чтобы все необходимые модули подключились.
 
 **4. Теперь можно заняться настройкой и запуском основного скрипта**
 
