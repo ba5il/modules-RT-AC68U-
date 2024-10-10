@@ -1,6 +1,6 @@
 **1. Устанавливаем необходимые пакеты**
 
-`opkg install curl bind-tools git-http ipset iptables xtables-addons_legacy cron coreutils-id ` 
+`opkg install curl bind-tools git-http ipset iptables xtables-addons_legacy cron coreutils-id ncat` 
 
 `cron` здесь нужен для обновления списка доменов из реестра. В файле `/opt/etc/init.d/S10cron` вместо ARGS="-s" оставляем просто ARGS=""
 
@@ -43,6 +43,10 @@ insmod /jffs/modules/xt_connbytes.ko
 4.3) Запускаем поиск возможных стратегий обхода `/opt/zapret/blockcheck.sh | tee /opt/zapret/blockcheck.txt`
 
   Весь вывод работы скрипта будет записан в файл blockcheck.txt. Имя можно дать любое (например, сделать несколько запусков с разными доменами). Открыв потом файл, можно копировать из него разные стратегии с меткой !!!AVAILABLE!!! в файл `/opt/zapret/config`, подбирая те, что будут работать.
+
+Во время работы будут постоянно выскакивать сообщения об ошибках:
+
+`PR_SET_NO_NEW_PRIVS(prctl): Invalid argument` --Данная команда поддерживается только начиная с ядра 3.5 (у нас 2.6). На работу не влияет.
 
 4.4) Настройка основного конфига `/opt/zapret/install_easy.sh` Перед запуском рекомендую через команду `ifconfig` узнать имя WAN интерфейса (с вашим внешним IP, у меня был eth0)
 
