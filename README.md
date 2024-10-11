@@ -28,7 +28,6 @@ modprobe ip_set_list_set
 modprobe xt_set
 insmod /jffs/modules/nfnetlink_queue.ko
 insmod /jffs/modules/xt_owner.ko
-insmod /jffs/modules/xt_connbytes.ko
 ```
 После этого выполняем `/jffs/scripts/init-start`, чтобы все необходимые модули подключились.
 
