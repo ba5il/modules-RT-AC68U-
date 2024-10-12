@@ -1,6 +1,6 @@
 **1. Устанавливаем необходимые пакеты**
 
-`opkg install curl bind-tools git-http ipset iptables xtables-addons_legacy cron coreutils-id ncat procps-ng-pgrep` 
+`opkg install curl bind-tools git-http ipset iptables xtables-addons_legacy cron coreutils-id coreutils-sort coreutils-sleep gzip ncat procps-ng-pgrep procps-ng-sysctl ` 
 
 `cron` здесь нужен для обновления списка доменов из реестра. В файле `/opt/etc/init.d/S10cron` вместо ARGS="-s" оставляем просто ARGS=""
 
