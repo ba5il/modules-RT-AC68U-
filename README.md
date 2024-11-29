@@ -38,7 +38,7 @@ modprobe xt_set
 
 [В релизах](https://github.com/bol-van/zapret/releases/) выбираем нужную версию *.tar.gz
 
-4.1) Скачиваем релиз `curl -L -o /tmp/zapret.tar.gz https://github.com/bol-van/zapret/releases/download/v69.3/zapret-v69.3.tar.gz`
+### 4.1) Скачиваем релиз `curl -L -o /tmp/zapret.tar.gz https://github.com/bol-van/zapret/releases/download/v69.3/zapret-v69.3.tar.gz`
       
 `tar -xvzf /tmp/zapret.tar.gz -C /opt`
 
@@ -52,9 +52,9 @@ modprobe xt_set
       
 `mv /opt/zapret-v69.3 /opt/zapret`
       
-4.2) Устанавливаем нужные бинарники  `/opt/zapret/install_bin.sh`
+### 4.2) Устанавливаем нужные бинарники  `/opt/zapret/install_bin.sh`
 
-4.3) Запускаем поиск возможных стратегий обхода `/opt/zapret/blockcheck.sh | tee /opt/zapret/blockcheck.txt`
+### 4.3) Запускаем поиск возможных стратегий обхода `/opt/zapret/blockcheck.sh | tee /opt/zapret/blockcheck.txt`
 
   Весь вывод работы скрипта будет записан в файл blockcheck.txt. Имя можно дать любое (например, сделать несколько запусков с разными доменами в разные файлы). А уже потом сравнить стратегии, которые работают для большинства сайтов, и добавить в файл `/opt/zapret/config`.
 
@@ -65,7 +65,7 @@ modprobe xt_set
 `PR_SET_NO_NEW_PRIVS(prctl): Invalid argument` --Данная команда поддерживается только начиная с ядра 3.5 (у нас 2.6). На работу не влияет.
 Остальные предупреждения на работу также не влияют.
 
-4.4) Настройка основного конфига `/opt/zapret/install_easy.sh` Перед запуском узнаем имя WAN интерфейса `nvram get wan0_ifname` ( обычно *eth0*, если *vlan2* - проверьте, что NAT Acceleration отключен), а также LAN интерфейса `nvram get lan_ifname` (в режиме роутера обычно *br0*)
+### 4.4) Настройка основного конфига `/opt/zapret/install_easy.sh` Перед запуском узнаем имя WAN интерфейса `nvram get wan0_ifname` ( обычно *eth0*, если *vlan2* - проверьте, что NAT Acceleration отключен), а также LAN интерфейса `nvram get lan_ifname` (в режиме роутера обычно *br0*)
 
   В целом рекомендую хотя бы почитать мануал по настройке и описанию переменных основного конфига в репозитории zapret.
 
