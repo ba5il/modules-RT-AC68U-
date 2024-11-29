@@ -1,9 +1,13 @@
+**!!!! ВАЖНО !!!! заходим в веб интерфейс и на вкладке (LAN -- Switch Control) обязательно отключаем NAT Acceleration**
+
 **1. Устанавливаем необходимые пакеты**
 
 `opkg install curl bind-tools git-http ipset iptables xtables-addons_legacy cron coreutils-id coreutils-sort coreutils-sleep gzip ncat procps-ng-pgrep procps-ng-sysctl` 
 
 В файле `/opt/etc/init.d/S10cron` вместо ARGS="-s" оставляем просто ARGS="", чтобы не было постоянного флуда в системный лог.
 
+
+**---------------------------- пункт 2 только для прошивок ниже 386.14_2 ---------------------------------**
 **2. Скачиваем недостающие модули и переносим их в раздел jffs**
 
 `git clone --depth 1 https://github.com/ba5il/modules-RT-AC68U- /opt/mod_add`
@@ -26,19 +30,30 @@ modprobe ip_set_hash_net
 modprobe ip_set_bitmap_ip
 modprobe ip_set_list_set
 modprobe xt_set
-insmod /jffs/modules/nfnetlink_queue.ko
-insmod /jffs/modules/xt_owner.ko
+# раскомментировать нижние строки для прошивок ниже 386.14_2
+#insmod /jffs/modules/nfnetlink_queue.ko
+#insmod /jffs/modules/xt_owner.ko
 ```
 После этого выполняем `/jffs/scripts/init-start`, чтобы все необходимые модули подключились.
 
 **4. Теперь можно заняться настройкой и запуском основного скрипта**
 
+В релизах `https://github.com/bol-van/zapret/releases/` выбираем нужную версию *.tar.gz
+
 4.1) Скачиваем релиз `curl -L -o /tmp/zapret.tar.gz https://github.com/bol-van/zapret/releases/download/v69.3/zapret-v69.3.tar.gz`
+      
       `tar -xvzf /tmp/zapret.tar.gz -C /opt/`
+
+      Лично мне пришлось изменить права у результирующей директории и после этого выполнить разархивацию заново, чтобы у всех файлов были нужные права
+      
       `chmod 777 /opt/zapret-v69.3`
+      
       `tar -xvzf /tmp/zapret.tar.gz -C /opt/`
+      
       `rm /tmp/zapret.tar.gz`
+      
       `mv /opt/zapret-v69.3 /opt/zapret`
+      
 4.2) Устанавливаем нужные бинарники  `/opt/zapret/install_bin.sh`
 
   После этого рекомендую почитать `https://github.com/bol-van/zapret/blob/master/docs/quick_start.txt` с 7-го пункта.
