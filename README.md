@@ -33,8 +33,10 @@ insmod /jffs/modules/xt_owner.ko
 
 **4. Теперь можно заняться настройкой и запуском основного скрипта**
 
-4.1) Клонируем репозиторий `git clone --depth 1 https://github.com/bol-van/zapret /opt/zapret`
-
+4.1) Скачиваем релиз `curl -L -o /tmp/zapret.tar.gz https://github.com/bol-van/zapret/releases/download/v69.3/zapret-v69.3.tar.gz`
+      'tar -xf /tmp/zapret.tar.gz -C /opt/'
+      'rm /tmp/zapret.tar.gz'
+      'mv /opt/zapret-v69.3 /opt/zapret'
 4.2) Устанавливаем нужные бинарники  `/opt/zapret/install_bin.sh`
 
   После этого рекомендую почитать `https://github.com/bol-van/zapret/blob/master/docs/quick_start.txt` с 7-го пункта.
