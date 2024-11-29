@@ -1,6 +1,6 @@
 **!!!! ВАЖНО !!!! заходим в веб интерфейс и на вкладке (LAN -- Switch Control) обязательно отключаем NAT Acceleration**
 
-**1. Устанавливаем необходимые пакеты**
+# 1. Устанавливаем необходимые пакеты
 
 `opkg install curl bind-tools git-http ipset iptables xtables-addons_legacy cron coreutils-id coreutils-sort coreutils-sleep gzip tar ncat procps-ng-pgrep procps-ng-sysctl` 
 
@@ -9,7 +9,7 @@
 
 **---------------------------- пункт 2 только для прошивок ниже 386.14_2 ---------------------------------**
 
-**2. Скачиваем недостающие модули и переносим их в раздел jffs**
+# 2. Скачиваем недостающие модули и переносим их в раздел jffs
 
 `git clone --depth 1 https://github.com/ba5il/modules-RT-AC68U- /opt/mod_add`
 
@@ -17,7 +17,7 @@
 
 `rm -r /opt/mod_add`
 
-**3. Добавляем подключение необходимых модулей в скрипт при старте роутера**
+# 3. Добавляем подключение необходимых модулей в скрипт при старте роутера
 
 `nano /jffs/scripts/init-start`
 
@@ -37,9 +37,9 @@ modprobe xt_set
 ```
 После этого выполняем `/jffs/scripts/init-start`, чтобы все необходимые модули подключились.
 
-**4. Теперь можно заняться настройкой и запуском основного скрипта**
+# 4. Теперь можно заняться настройкой и запуском основного скрипта
 
-В релизах `https://github.com/bol-van/zapret/releases/` выбираем нужную версию *.tar.gz
+[В релизах] (https://github.com/bol-van/zapret/releases/) выбираем нужную версию *.tar.gz
 
 4.1) Скачиваем релиз `curl -L -o /tmp/zapret.tar.gz https://github.com/bol-van/zapret/releases/download/v69.3/zapret-v69.3.tar.gz`
       
@@ -86,6 +86,6 @@ modprobe xt_set
 
 ***После настройки запускаем*** `/opt/zapret/init.d/sysv/zapret start`
 
-**5. Добавляем в автозапуск при старте системы**
+# 5. Добавляем в автозапуск при старте системы
 
 `ln -fs /opt/zapret/init.d/sysv/zapret /opt/etc/init.d/S99zapret`
