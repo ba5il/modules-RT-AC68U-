@@ -2,12 +2,13 @@
 
 **1. Устанавливаем необходимые пакеты**
 
-`opkg install curl bind-tools git-http ipset iptables xtables-addons_legacy cron coreutils-id coreutils-sort coreutils-sleep gzip ncat procps-ng-pgrep procps-ng-sysctl` 
+`opkg install curl bind-tools git-http ipset iptables xtables-addons_legacy cron coreutils-id coreutils-sort coreutils-sleep gzip tar ncat procps-ng-pgrep procps-ng-sysctl` 
 
 В файле `/opt/etc/init.d/S10cron` вместо ARGS="-s" оставляем просто ARGS="", чтобы не было постоянного флуда в системный лог.
 
 
-**---------------------------- пункт 2 только для прошивок ниже 386.14_2 ---------------------------------**
+**---------------------------- пункт 2 только для прошивок ниже 386.14_2 ---------------------------------/n**
+
 **2. Скачиваем недостающие модули и переносим их в раздел jffs**
 
 `git clone --depth 1 https://github.com/ba5il/modules-RT-AC68U- /opt/mod_add`
@@ -42,21 +43,19 @@ modprobe xt_set
 
 4.1) Скачиваем релиз `curl -L -o /tmp/zapret.tar.gz https://github.com/bol-van/zapret/releases/download/v69.3/zapret-v69.3.tar.gz`
       
-      `tar -xvzf /tmp/zapret.tar.gz -C /opt/`
+      `tar -xvzf /tmp/zapret.tar.gz -C /opt`
 
       Лично мне пришлось изменить права у результирующей директории и после этого выполнить разархивацию заново, чтобы у всех файлов были нужные права
       
       `chmod 777 /opt/zapret-v69.3`
       
-      `tar -xvzf /tmp/zapret.tar.gz -C /opt/`
+      `tar -xvzf /tmp/zapret.tar.gz -C /opt`
       
       `rm /tmp/zapret.tar.gz`
       
       `mv /opt/zapret-v69.3 /opt/zapret`
       
 4.2) Устанавливаем нужные бинарники  `/opt/zapret/install_bin.sh`
-
-  После этого рекомендую почитать `https://github.com/bol-van/zapret/blob/master/docs/quick_start.txt` с 7-го пункта.
 
 4.3) Запускаем поиск возможных стратегий обхода `/opt/zapret/blockcheck.sh | tee /opt/zapret/blockcheck.txt`
 
@@ -69,12 +68,13 @@ modprobe xt_set
 `PR_SET_NO_NEW_PRIVS(prctl): Invalid argument` --Данная команда поддерживается только начиная с ядра 3.5 (у нас 2.6). На работу не влияет.
 Остальные предупреждения на работу также не влияют.
 
-4.4) Настройка основного конфига `/opt/zapret/install_easy.sh` Перед запуском рекомендую через команду `ifconfig` узнать имя WAN интерфейса (с вашим внешним IP, у меня был eth0), а также LAN интерфейсов.
+4.4) Настройка основного конфига `/opt/zapret/install_easy.sh` Перед запуском узнаем имя WAN интерфейса `nvram get wan0_ifname` ( обычно *eth0*, если *vlan2* - проверьте, что NAT Acceleration отключен), а также LAN интерфейса `nvram get lan_ifname` (в режиме роутера обычно *br0*)
 
   В целом рекомендую хотя бы почитать мануал по настройке и описанию переменных основного конфига в репозитории zapret.
 
-   У меня выбран режим фильтрации MODE_FILTER=hostlist. Обход применяется ко всем доменам, кроме списка `/opt/zapret/ipset/zapret-hosts-user-exclude.txt` Сюда можно добавлять сайты, которые не заблокированы, но при запуске обхода ломаются.
-  Если вам нужен именно такой режим - нужно сделать пустым файл `/opt/zapret/ipset/zapret-hosts-users.txt`.
+  У меня выбран режим фильтрации MODE_FILTER=autohostlist. Список для обхода формируется автоматически - после нескольких неудачных попыток открыть сайт. Сам файл `/opt/zapret/ipset/zapret-hosts-auto.txt`
+
+  Рекомендую также в конфиге `/opt/zapret/config` потом включить режим отладки AUTOHOSTLIST_DEBUGLOG=1 Вся инфа о возможных заблокированных сайтах будет записываться в `/opt/zapret/ipset/zapret-hosts-auto-debug.log`
   
   ***В конце работы скрипта могут быть следующие ошибки (у меня по крайней мере были)***
 
