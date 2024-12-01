@@ -96,11 +96,8 @@ modprobe xt_set
 ## (Дополнительно) установка cURL  с поддержкой QUIC
 `opkg remove curl`
 
-`curl -Lo /tmp/curl.tar.xz https://github.com/stunnel/static-curl/releases/download/8.11.0/curl-linux-armv5-glibc-8.11.0.tar.xz`
+`curl -Lo /tmp/curl.tar.xz https://github.com/stunnel/static-curl/releases/download/8.11.0/curl-linux-armv5-musl-8.11.0.tar.xz`
 
 `tar -xf /tmp/curl.tar.xz -C /opt/bin`
 
 `rm /tmp/curl.tar.xz`
-
-
-`tar -xf /tmp/curl.tar.xz /opt/bin`
