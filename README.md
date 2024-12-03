@@ -99,6 +99,6 @@ modprobe xt_set
 
 `curl -Lo /tmp/curl.tar.xz https://github.com/stunnel/static-curl/releases/download/8.11.0/curl-linux-armv5-musl-8.11.0.tar.xz`
 
-`tar -xf /tmp/curl.tar.xz -C /opt/bin`
+`tar -xf /tmp/curl.tar.xz -C /opt/bin curl`
 
 `rm /tmp/curl.tar.xz`
