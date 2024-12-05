@@ -39,18 +39,9 @@ modprobe xt_set
 [В релизах](https://github.com/bol-van/zapret/releases/) выбираем нужную версию *.tar.gz
 
 ### 4.1) Скачиваем и разархивируем релиз
-`curl -L -o /tmp/zapret.tar.gz https://github.com/bol-van/zapret/releases/download/v69.3/zapret-v69.3.tar.gz`
+`cd /opt`
       
-`tar -xvzf /tmp/zapret.tar.gz -C /opt`
-
-Лично мне пришлось изменить права у результирующей директории и после этого выполнить разархивацию заново, чтобы у всех файлов были нужные права.
-Если у вас никаких ошибок при разархивации не будет, то следующие две строчки выполнять не нужно.
-      
-`chmod 777 /opt/zapret-v69.3`
-      
-`tar -xvzf /tmp/zapret.tar.gz -C /opt`
-      
-`rm /tmp/zapret.tar.gz`
+`curl -Lo - https://github.com/bol-van/zapret/releases/download/v69.5/zapret-v69.5.tar.gz | tar -xvzf -`
       
 `mv /opt/zapret-v69.3 /opt/zapret`
       
