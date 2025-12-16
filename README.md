@@ -41,7 +41,7 @@ modprobe xt_set
 ### 4.1) Скачиваем и разархивируем релиз
 `cd /opt`
       
-`curl -Lo - https://github.com/bol-van/zapret/releases/download/v69.5/zapret-v69.5.tar.gz | tar -xvzf -`
+`curl -Lo - https://github.com/bol-van/zapret/releases/download/v72.4/zapret-v72.4.tar.gz | tar -xvzf -`
       
 `mv /opt/zapret-v69.5 /opt/zapret`
       
