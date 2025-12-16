@@ -43,7 +43,7 @@ modprobe xt_set
       
 `curl -Lo - https://github.com/bol-van/zapret/releases/download/v72.4/zapret-v72.4.tar.gz | tar -xvzf -`
       
-`mv /opt/zapret-v69.5 /opt/zapret`
+`mv /opt/zapret-v72.4 /opt/zapret`
       
 ### 4.2) Устанавливаем нужные бинарники 
 `/opt/zapret/install_bin.sh`
